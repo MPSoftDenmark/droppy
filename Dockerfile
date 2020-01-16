@@ -1,11 +1,11 @@
 FROM node:alpine
-MAINTAINER silverwind
+MAINTAINER mpsoftdenmark
 
 # Copy files
 COPY ["client", "/droppy/client"]
 COPY ["server", "/droppy/server"]
 COPY ["dist", "/droppy/dist"]
-COPY ["droppy.js", "index.js", "docker-start.sh", "README.md", "LICENSE", "package.json", "/droppy/"]
+COPY ["droppy.js", "index.js", "docker-start.sh", "package.json", "/droppy/"]
 
 # Install build dependencies and and build modules
 RUN cd /droppy && \

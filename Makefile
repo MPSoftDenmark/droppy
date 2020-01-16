@@ -22,7 +22,7 @@ publish:
 	npm publish
 
 docker:
-	$(eval IMAGE := silverwind/droppy)
+	$(eval IMAGE := mpsoftdenmark/droppy)
 	@echo Preparing docker image $(IMAGE)...
 	docker pull node:alpine
 	sed -i "s/^FROM.\+/FROM node:alpine/g" Dockerfile
@@ -31,7 +31,7 @@ docker:
 	docker build --no-cache=true --squash -t $(IMAGE) .
 	docker tag "$$(docker images -qa $(IMAGE):latest)" $(IMAGE):"$$(cat package.json | jq -r .version)"
 
-	$(eval IMAGE := silverwind/armhf-droppy)
+	$(eval IMAGE := mpsoftdenmark/armhf-droppy)
 	@echo Preparing docker image $(IMAGE)...
 	docker pull arm32v6/node:alpine
 	sed -i "s/^FROM.\+/FROM arm32v6\/node:alpine/g" Dockerfile
@@ -40,7 +40,7 @@ docker:
 	docker build --no-cache=true --squash -t $(IMAGE) .
 	docker tag "$$(docker images -qa $(IMAGE):latest)" $(IMAGE):"$$(cat package.json | jq -r .version)"
 
-	$(eval IMAGE := silverwind/arm64v8-droppy)
+	$(eval IMAGE := mpsoftdenmark/arm64v8-droppy)
 	@echo Preparing docker image $(IMAGE)...
 	docker pull arm64v8/node:alpine
 	sed -i "s/^FROM.\+/FROM arm64v8\/node:alpine/g" Dockerfile
@@ -52,12 +52,12 @@ docker:
 	sed -i "s/^FROM.\+/FROM node:alpine/g" Dockerfile
 
 docker-push:
-	docker push silverwind/droppy:"$$(cat package.json | jq -r .version)"
-	docker push silverwind/droppy:latest
-	docker push silverwind/armhf-droppy:"$$(cat package.json | jq -r .version)"
-	docker push silverwind/armhf-droppy:latest
-	docker push silverwind/arm64v8-droppy:"$$(cat package.json | jq -r .version)"
-	docker push silverwind/arm64v8-droppy:latest
+	docker push mpsoftdenmark/droppy:"$$(cat package.json | jq -r .version)"
+	docker push mpsoftdenmark/droppy:latest
+	docker push mpsoftdenmark/armhf-droppy:"$$(cat package.json | jq -r .version)"
+	docker push mpsoftdenmark/armhf-droppy:latest
+	docker push mpsoftdenmark/arm64v8-droppy:"$$(cat package.json | jq -r .version)"
+	docker push mpsoftdenmark/arm64v8-droppy:latest
 
 deps:
 	rm -rf node_modules
